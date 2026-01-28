@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Academic Score Dashboard</title>
+  <style>
+    :root {
+      --bg1: #0f2027;
+      --bg2: #203a43;
+      --bg3: #2c5364;
+      --card: rgba(255,255,255,0.12);
+      --accent: #4ade80;
+      --danger: #f87171;
+      --text: #e5e7eb;
+      --muted: #cbd5e1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      min-height: 100vh;
+      color: var(--text);
+      padding: 40px 20px;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: auto;
+      margin-bottom: 30px;
+      animation: fadeDown 0.9s ease;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .dashboard {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      animation: fadeUp 1s ease;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      backdrop-filter: blur(12px);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .coef {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr 1fr 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .label {
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: rgba(255,255,255,0.9);
+      text-align: center;
+      font-weight: 600;
+    }
+
+    input:disabled {
+      background: rgba(255,255,255,0.4);
+    }
+
+    .grade {
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .pass { color: var(--accent); }
+    .fail { color: var(--danger); }
+
+    .actions {
+      max-width: 1100px;
+      margin: 30px auto 0;
+      text-align: center;
+    }
+
+    button {
+      padding: 14px 40px;
+      font-size: 18px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #052e16;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.5);
+    }
+
+    .summary {
+      max-width: 1100px;
+      margin: 25px auto 0;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      animation: fadeUp 0.6s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 700px) {
+      .row { grid-template-columns: 2fr 1fr 1fr; }
+      .grade { grid-column: span 3; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>ENS english</h1>
+  <p>TD = 33% · Exam = 67% · Grades calculated over 20</p>
+</header>
+
+<div class="dashboard">
+
+  <div class="card">
+    <div class="card-title">Grammar <span class="coef">Coef 2</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="grammar_td" placeholder="TD">
+      <input id="grammar_exam" placeholder="Exam">
+      <div class="grade" id="g1">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Phonetics & Phonology <span class="coef">Coef 1</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="phon_td" placeholder="TD">
+      <input id="phon_exam" placeholder="Exam">
+      <div class="grade" id="g2">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Writing Techniques <span class="coef">Coef 3</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="write_td" placeholder="TD">
+      <input id="write_exam" placeholder="Exam">
+      <div class="grade" id="g3">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Culture Studies <span class="coef">Coef 1</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="cult_td" placeholder="TD">
+      <input id="cult_exam" placeholder="Exam">
+      <div class="grade" id="g4">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Listening & Speaking <span class="coef">Coef 3</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="ls_td" placeholder="TD">
+      <input id="ls_exam" placeholder="Exam">
+      <div class="grade" id="g5">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Informatics <span class="coef">Coef 1</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="info_td" placeholder="TD">
+      <input id="info_exam" placeholder="Exam">
+      <div class="grade" id="g6">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Linguistics <span class="coef">Coef 1</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="ling_td" placeholder="TD">
+      <input id="ling_exam" placeholder="Exam">
+      <div class="grade" id="g7">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Study Skills <span class="coef">Coef 1</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="study_td" placeholder="TD">
+      <input id="study_exam" placeholder="Exam">
+      <div class="grade" id="g8">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Reading Techniques <span class="coef">Coef 1</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input id="read_td" placeholder="TD">
+      <input id="read_exam" placeholder="Exam">
+      <div class="grade" id="g9">—</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Arabic (Exam only) <span class="coef">Coef 1</span></div>
+    <div class="row">
+      <div class="label">Marks</div>
+      <input disabled placeholder="—">
+      <input id="arabic_exam" placeholder="Exam">
+      <div class="grade" id="g10">—</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="actions">
+  <button onclick="calculate()">Calculate Results</button>
+</div>
+
+<div class="summary" id="summary"></div>
+
+<script>
+function v(id){return parseFloat(document.getElementById(id)?.value)||0}
+function calc(td,exam){return td*0.33+exam*0.67}
+function show(id,val){
+  const e=document.getElementById(id);
+  e.textContent=val.toFixed(2);
+  e.className='grade '+(val>=10?'pass':'fail');
+}
+
+function calculate(){
+  let total=0,coef=0,g;
+
+  g=calc(v('grammar_td'),v('grammar_exam')); show('g1',g); total+=g*2; coef+=2;
+  g=calc(v('phon_td'),v('phon_exam')); show('g2',g); total+=g; coef+=1;
+  g=calc(v('write_td'),v('write_exam')); show('g3',g); total+=g*3; coef+=3;
+  g=calc(v('cult_td'),v('cult_exam')); show('g4',g); total+=g; coef+=1;
+  g=calc(v('ls_td'),v('ls_exam')); show('g5',g); total+=g*3; coef+=3;
+  g=calc(v('info_td'),v('info_exam')); show('g6',g); total+=g; coef+=1;
+  g=calc(v('ling_td'),v('ling_exam')); show('g7',g); total+=g; coef+=1;
+  g=calc(v('study_td'),v('study_exam')); show('g8',g); total+=g; coef+=1;
+  g=calc(v('read_td'),v('read_exam')); show('g9',g); total+=g; coef+=1;
+  g=v('arabic_exam'); show('g10',g); total+=g; coef+=1;
+
+  let avg=total/coef;
+  document.getElementById('summary').innerHTML=
+    `Final Average: <span class="${avg>=10?'pass':'fail'}">${avg.toFixed(2)} / 20</span>`;
+}
+</script>
+
+</body>
+</html>
